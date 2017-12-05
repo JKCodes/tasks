@@ -1,29 +1,16 @@
 import React, { Component } from 'react'
-import { APIManager } from '../../utils'
 import { CreateTask } from '../view'
+import { connect } from 'react-redux'
+import actions from '../../actions' 
 
 class Task extends Component {
 
   componentDidMount() {
-    APIManager
-    .get('/api/task', null)
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    this.props.fetchTasks(null)
   }
 
   createTask(task) {
-    APIManager
-    .post('/api/task', task)
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    this.props.createTask(task)
   }
 
   render(){
@@ -37,6 +24,18 @@ class Task extends Component {
   }
 }
 
-export default Task
+const stateToProps = (state) => {
+  return {
+
+  }
+}
+
+const dispatchToProps = (dispatch) => {
+  return {
+    fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
+    createTask: (params) => dispatch(actions.createTask(params))  
+  }
+}
 
 
+export default connect(stateToProps, dispatchToProps)(Task)
