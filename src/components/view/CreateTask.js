@@ -8,7 +8,7 @@ class CreateTask extends Component {
       task: {
         title: '',
         description: '',
-        category: ''
+        category: 'delivery'
       }
     }
   }

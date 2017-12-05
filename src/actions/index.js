@@ -11,7 +11,8 @@ const getRequest = (path, params, actionType) => {
 
         dispatch({
           type: actionType,
-          payload: payload
+          payload: payload,
+          params: params
         })
       })
       .catch(err => {
@@ -31,7 +32,8 @@ const postRequest = (path, params, actionType) => {
 
         dispatch({
           type: actionType,
-          payload: payload
+          payload: payload,
+          params: params
         })
       })
       .catch(err => {
@@ -55,4 +57,11 @@ export default {
       return dispatch(postRequest('api/task', params, constants.TASK_CREATED))
     }
   },
+
+  selectCategory: (category) => {
+    return  {
+      type: constants.CATEGORY_SELECTED,
+      payload: category
+    }
+  }
 }

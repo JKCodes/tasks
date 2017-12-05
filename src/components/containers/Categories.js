@@ -4,6 +4,13 @@ import actions from '../../actions'
 
 class Categories extends Component {
 
+  selectCategory(event) {
+    event.preventDefault()
+
+    this.props.selectCategory(event.target.id)
+  }
+
+
   render(){
 
     return (
@@ -15,7 +22,7 @@ class Categories extends Component {
 
               return ( 
                 <li key={category}>
-                  <a href="#" style={{color: color}}>{category}</a>
+                  <a id={category} onClick={this.selectCategory.bind(this)} href="#" style={{color: color}}>{category}</a>
                 </li>  
               )
             })
@@ -34,7 +41,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-
+    selectCategory: (category) => dispatch(actions.selectCategory(category))
   }
 }
 

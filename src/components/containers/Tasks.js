@@ -5,14 +5,26 @@ import actions from '../../actions'
 
 class Task extends Component {
 
-  componentDidMount() {
-    this.props.fetchTasks(null)
+  getTasks() {
+    if (this.props.tasks[this.props.tasks.selectedCategory]) {
+      return
+    }
+
+    this.props.fetchTasks({category: this.props.tasks.selectedCategory})
     .then(tasks => {
 
     })
     .catch(err => {
       alert(err)
     })
+  }
+
+  componentDidMount() {
+    this.getTasks()
+  }
+
+  componentDidUpdate() {
+    this.getTasks()
   }
 
   createTask(task) {
@@ -32,8 +44,8 @@ class Task extends Component {
         <h2>Tasks</h2>
 
         <ol>
-          { (this.props.tasks.all == null) ? null :
-            this.props.tasks.all.map((task, i) => {
+          { (this.props.tasks[this.props.tasks.selectedCategory] == null) ? null :
+            this.props.tasks[this.props.tasks.selectedCategory].map((task, i) => {
               return <li key={task.id}>{task.title}</li>
             })
           }

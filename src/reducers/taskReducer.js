@@ -13,19 +13,29 @@ var initialState = {
 export default (state = initialState, action) => {
 
   let updated = Object.assign({}, state)
-  let updatedAll = (updated['all']) ? Object.assign([], updated.all) : []
 
   switch (action.type) {
 
     case constants.TASKS_RECEIVED:
-      updated['all'] = action.payload
+      const keys = Object.keys(action.params)
+
+      keys.forEach((key, i) => {
+        const value = action.params[key]
+
+        updated[value] = action.payload
+      })
 
       return updated
 
     case constants.TASK_CREATED:
-      updatedAll.unshift(action.payload)
-      updated['all'] = updatedAll
+      let currentTasks = (updated[action.payload.category]) ? Object.assign([], updated[action.payload.category]) : []
+      currentTasks.unshift(action.payload)
+      updated[action.payload.category] = currentTasks
 
+      return updated
+
+    case constants.CATEGORY_SELECTED:
+      updated['selectedCategory'] = action.payload
       return updated
 
     default:
