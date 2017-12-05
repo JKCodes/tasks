@@ -19,7 +19,7 @@ export default {
     }
   },
 
-  taskCreated: (params) => {
+  createTask: (params) => {
     return (dispatch) => {
       APIManager
       .post('/api/task', params)

@@ -17,7 +17,16 @@ class Task extends Component {
 
     return (
       <div>
-        Tasks Container
+        <h2>Tasks</h2>
+
+        <ol>
+          { (this.props.tasks.all == null) ? null :
+            this.props.tasks.all.map((task, i) => {
+              return <li key={task.id}>{task.title}</li>
+            })
+          }
+        </ol>
+        
         <CreateTask onSubmitTask={this.createTask.bind(this)} />
       </div>
     )
@@ -26,7 +35,7 @@ class Task extends Component {
 
 const stateToProps = (state) => {
   return {
-
+    tasks: state.task
   }
 }
 
