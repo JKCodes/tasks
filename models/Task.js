@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 var TaskSchema = new mongoose.Schema({
   title: {type:String, default:''},
   description: {type:String, default:''},
+  category: {type:String, default:''},
   profile: {type:mongoose.Schema.Types.Mixed, default:{}},
   timestamp: {type:Date, default: Date.now}
 })
@@ -12,6 +13,7 @@ TaskSchema.methods.summary = function(){
     title: this.title,
     description: this.description,
     profile: this.profile,
+    category: this.category,
     timestamp: this.timestamp,
     id: this._id.toString()
   }
