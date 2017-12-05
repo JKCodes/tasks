@@ -5,6 +5,19 @@ import { Authenticate } from '../view'
 
 class Account extends Component {
 
+  componentDidMount(){
+    if (this.props.user != null)
+      return
+    
+    this.props.checkCurrentUser()
+    .then(response => {
+
+    })
+    .catch(err => {
+      console.log('ERROR: '+err.message)
+    })
+  }
+
   authenticate(credentials){
     this.props.login(credentials)
     .then(response => {
@@ -22,13 +35,12 @@ class Account extends Component {
   render(){
 
     return (
-      <div>
+      <div style={{padding: 24}}>
         <h2>Account</h2>
-        
-        <Authenticate 
-          onLogin={this.authenticate.bind(this)}
-          onRegister={this.register.bind(this)} 
-        />
+        { (this.props.user == null) ? <Authenticate onLogin={this.authenticate.bind(this)} onRegister={this.register.bind(this)} /> :
+          <h2> Hello {this.prpos.user.username}</h2>
+        }
+
       </div>
     )
   }

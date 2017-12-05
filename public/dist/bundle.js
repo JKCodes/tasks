@@ -24684,7 +24684,7 @@
 	        params: params
 	      });
 	    }).catch(function (err) {
-	      console.log(err);
+	      throw err;
 	    });
 	  };
 	};
@@ -24700,7 +24700,7 @@
 	        params: params
 	      });
 	    }).catch(function (err) {
-	      console.log(err);
+	      throw err;
 	    });
 	  };
 	};
@@ -33216,6 +33216,15 @@
 	  }
 	
 	  _createClass(Account, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.props.user != null) return;
+	
+	      this.props.checkCurrentUser().then(function (response) {}).catch(function (err) {
+	        console.log('ERROR: ' + err.message);
+	      });
+	    }
+	  }, {
 	    key: 'authenticate',
 	    value: function authenticate(credentials) {
 	      this.props.login(credentials).then(function (response) {}).catch(function (err) {
@@ -33233,16 +33242,18 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { style: { padding: 24 } },
 	        _react2.default.createElement(
 	          'h2',
 	          null,
 	          'Account'
 	        ),
-	        _react2.default.createElement(_view.Authenticate, {
-	          onLogin: this.authenticate.bind(this),
-	          onRegister: this.register.bind(this)
-	        })
+	        this.props.user == null ? _react2.default.createElement(_view.Authenticate, { onLogin: this.authenticate.bind(this), onRegister: this.register.bind(this) }) : _react2.default.createElement(
+	          'h2',
+	          null,
+	          ' Hello ',
+	          this.prpos.user.username
+	        )
 	      );
 	    }
 	  }]);
