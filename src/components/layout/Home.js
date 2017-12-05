@@ -4,9 +4,15 @@ import { Tasks } from '../containers'
 class Home extends Component {
   render(){
     return (
-      <div>
-        Home
-        <Tasks />
+      <div className="row">
+       
+        <div className="col-md-4">
+          Categories
+        </div>
+
+        <div className="col-md-4">
+          <Tasks />
+        </div>
       </div>
     )
   }
