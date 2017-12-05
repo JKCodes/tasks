@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tasks } from '../containers'
+import { Tasks, Categories } from '../containers'
 
 class Home extends Component {
   render(){
@@ -7,7 +7,7 @@ class Home extends Component {
       <div className="row">
        
         <div className="col-md-4">
-          Categories
+          <Categories />
         </div>
 
         <div className="col-md-4">

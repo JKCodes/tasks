@@ -1,7 +1,13 @@
 import constants from '../constants'
 
 var initialState = {
-  all: null
+  all: null,
+  selectedCategory: 'delivery',
+  categories: [
+    'delivery',
+    'dog walking',
+    'house cleaning'
+  ]
 }
 
 export default (state = initialState, action) => {
