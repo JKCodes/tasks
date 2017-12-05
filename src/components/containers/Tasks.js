@@ -5,7 +5,19 @@ import { CreateTask } from '../view'
 class Task extends Component {
 
   componentDidMount() {
-    APIManager.get('/api/task', null)
+    APIManager
+    .get('/api/task', null)
+    .then(response => {
+      console.log(response)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  createTask(task) {
+    APIManager
+    .post('/api/task', task)
     .then(response => {
       console.log(response)
     })
@@ -19,7 +31,7 @@ class Task extends Component {
     return (
       <div>
         Tasks Container
-        <CreateTask />
+        <CreateTask onSubmitTask={this.createTask.bind(this)} />
       </div>
     )
   }
