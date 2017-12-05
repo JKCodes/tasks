@@ -5,12 +5,18 @@ import { Authenticate } from '../view'
 
 class Account extends Component {
 
-  login(credentials) {
+  authenticate(credentials){
+    this.props.login(credentials)
+    .then(response => {
 
+    })
+    .catch(err => {
+      alert(err.message)
+    })
   }
 
   register(credentials) {
-
+    this.props.register(credentials)
   }
 
   render(){
@@ -20,7 +26,7 @@ class Account extends Component {
         <h2>Account</h2>
         
         <Authenticate 
-          onLogin={this.login.bind(this)}
+          onLogin={this.authenticate.bind(this)}
           onRegister={this.register.bind(this)} 
         />
       </div>
@@ -30,13 +36,15 @@ class Account extends Component {
 
 const stateToProps = (state) => {
   return {
-
+    user: state.account.user
   }
 }
 
 const dispatchToProps = (dispatch) => {
   return {
-
+    register: (credentials) => disptach(actions.register(credentials)),
+    login: (credentials) => disptach(actions.login(credentials)),
+    checkCurrentUser: () => disptach(actions.checkCurrentUser())
   }
 }
 

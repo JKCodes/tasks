@@ -24707,6 +24707,30 @@
 	
 	exports.default = {
 	
+	  register: function register(credentials) {
+	    return function (dispatch) {
+	      return dispatch(postRequest('/account/register', credentials, _constants2.default.PROFILE_CREATED));
+	    };
+	  },
+	
+	  login: function login(credentials) {
+	    return function (dispatch) {
+	      return dispatch(postRequest('/account/login', credentials, _constants2.default.USER_LOGGED_IN));
+	    };
+	  },
+	
+	  checkCurrentUser: function checkCurrentUser() {
+	    return function (dispatch) {
+	      return dispatch(getRequest('/account/currentuser', {}, _constants2.default.USER_LOGGED_IN));
+	    };
+	  },
+	
+	  fetchProfile: function fetchProfile(id) {
+	    return function (dispatch) {
+	      return dispatch(getRequest('/api/profile/' + id, null, _constants2.default.PROFILE_RECEIVED));
+	    };
+	  },
+	
 	  fetchTasks: function fetchTasks(params) {
 	    return function (dispatch) {
 	      return dispatch(getRequest('/api/task', params, _constants2.default.TASKS_RECEIVED));
@@ -24737,12 +24761,15 @@
 	  value: true
 	});
 	exports.default = {
+	  PROFILE_CREATED: 'PROFILE_CREATED',
+	  PROFILE_RECEIVED: 'PROFILE_RECEIVED',
+	
+	  USER_LOGGED_IN: 'USER_LOGGED_IN',
 	
 	  TASKS_RECEIVED: 'TASKS_RECEIVED',
 	  TASK_CREATED: 'TASK_CREATED',
 	
 	  CATEGORY_SELECTED: 'CATEGORY_SELECTED'
-	
 	};
 
 /***/ }),
@@ -33023,7 +33050,8 @@
 	exports.default = {
 	  configureStore: function configureStore() {
 	    var reducers = (0, _redux.combineReducers)({
-	      task: _reducers.taskReducer
+	      task: _reducers.taskReducer,
+	      account: _reducers.accountReducer
 	    });
 	
 	    store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -33073,15 +33101,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.taskReducer = undefined;
+	exports.accountReducer = exports.taskReducer = undefined;
 	
 	var _taskReducer = __webpack_require__(283);
 	
 	var _taskReducer2 = _interopRequireDefault(_taskReducer);
 	
+	var _accountReducer = __webpack_require__(286);
+	
+	var _accountReducer2 = _interopRequireDefault(_accountReducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.taskReducer = _taskReducer2.default;
+	exports.accountReducer = _accountReducer2.default;
 
 /***/ }),
 /* 283 */
@@ -33183,11 +33216,17 @@
 	  }
 	
 	  _createClass(Account, [{
-	    key: 'login',
-	    value: function login(credentials) {}
+	    key: 'authenticate',
+	    value: function authenticate(credentials) {
+	      this.props.login(credentials).then(function (response) {}).catch(function (err) {
+	        alert(err.message);
+	      });
+	    }
 	  }, {
 	    key: 'register',
-	    value: function register(credentials) {}
+	    value: function register(credentials) {
+	      this.props.register(credentials);
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -33201,7 +33240,7 @@
 	          'Account'
 	        ),
 	        _react2.default.createElement(_view.Authenticate, {
-	          onLogin: this.login.bind(this),
+	          onLogin: this.authenticate.bind(this),
 	          onRegister: this.register.bind(this)
 	        })
 	      );
@@ -33212,11 +33251,23 @@
 	}(_react.Component);
 	
 	var stateToProps = function stateToProps(state) {
-	  return {};
+	  return {
+	    user: state.account.user
+	  };
 	};
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
-	  return {};
+	  return {
+	    register: function register(credentials) {
+	      return disptach(_actions2.default.register(credentials));
+	    },
+	    login: function login(credentials) {
+	      return disptach(_actions2.default.login(credentials));
+	    },
+	    checkCurrentUser: function checkCurrentUser() {
+	      return disptach(_actions2.default.checkCurrentUser());
+	    }
+	  };
 	};
 	
 	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(Account);
@@ -33383,6 +33434,47 @@
 	}(_react.Component);
 	
 	exports.default = Authenticate;
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _constants = __webpack_require__(231);
+	
+	var _constants2 = _interopRequireDefault(_constants);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var initialState = {
+	  user: null
+	};
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  var updated = Object.assign({}, state);
+	
+	  switch (action.type) {
+	
+	    case _constants2.default.PROFILE_CREATED:
+	      updated['user'] = action.payload;
+	      return updated;
+	
+	    case _constants2.default.USER_LOGGED_IN:
+	      updated['user'] = action.payload;
+	      return updated;
+	
+	    default:
+	      return state;
+	  }
+	};
 
 /***/ })
 /******/ ]);

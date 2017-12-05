@@ -46,6 +46,30 @@ const postRequest = (path, params, actionType) => {
 
 export default {
 
+  register: (credentials) => {
+    return (dispatch) => {
+      return dispatch(postRequest('/account/register', credentials, constants.PROFILE_CREATED))
+    }
+  },
+
+  login: (credentials) => {
+    return (dispatch) => {
+      return dispatch(postRequest('/account/login', credentials, constants.USER_LOGGED_IN))
+    }
+  },
+
+  checkCurrentUser: () => {
+    return (dispatch) => {
+      return dispatch(getRequest('/account/currentuser', {}, constants.USER_LOGGED_IN))
+    }
+  },
+
+  fetchProfile: (id) => {
+    return (dispatch) => {
+      return dispatch(getRequest('/api/profile/'+id, null, constants.PROFILE_RECEIVED))
+    }
+  },
+
   fetchTasks: (params) => {
     return dispatch => {
       return dispatch(getRequest('/api/task', params, constants.TASKS_RECEIVED))
