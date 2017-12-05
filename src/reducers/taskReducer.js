@@ -12,12 +12,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case constants.TASKS_RECEIVED:
-      updated['all'] = action.tasks
+      updated['all'] = action.payload
 
       return updated
 
     case constants.TASK_CREATED:
-      updatedAll.unshift(action.task)
+      updatedAll.unshift(action.payload)
       updated['all'] = updatedAll
 
       return updated

@@ -7,10 +7,22 @@ class Task extends Component {
 
   componentDidMount() {
     this.props.fetchTasks(null)
+    .then(tasks => {
+
+    })
+    .catch(err => {
+      alert(err)
+    })
   }
 
   createTask(task) {
     this.props.createTask(task)
+    .then(task => {
+
+    })
+    .catch(err => {
+      alert(err)
+    })
   }
 
   render(){
@@ -26,7 +38,7 @@ class Task extends Component {
             })
           }
         </ol>
-        
+
         <CreateTask onSubmitTask={this.createTask.bind(this)} />
       </div>
     )

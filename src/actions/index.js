@@ -1,37 +1,58 @@
 import constants from '../constants'
 import { APIManager } from '../utils'
 
-export default {
-
-  fetchTasks: (params) => {
-    return (dispatch) => {
+const getRequest = (path, params, actionType) => {
+  return (dispatch) => {
+    return (
       APIManager
-      .get('/api/task', params)
+      .get(path, params)
       .then(response => {
+        const payload = response.results || response.result
+
         dispatch({
-          type: constants.TASKS_RECEIVED,
-          tasks: response.results
+          type: actionType,
+          payload: payload
         })
       })
       .catch(err => {
         console.log(err)
       })
+    )
+  }
+}
+
+const postRequest = (path, params, actionType) => {
+  return (dispatch) => {
+    return (
+      APIManager
+      .post(path, params)
+      .then(response => {
+        const payload = response.results || response.result
+
+        dispatch({
+          type: actionType,
+          payload: payload
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    )
+  }
+}
+
+
+export default {
+
+  fetchTasks: (params) => {
+    return dispatch => {
+      return dispatch(getRequest('/api/task', params, constants.TASKS_RECEIVED))
     }
   },
 
   createTask: (params) => {
-    return (dispatch) => {
-      APIManager
-      .post('/api/task', params)
-      .then(response => {
-        dispatch({
-          type: constants.TASK_CREATED,
-          task: response.result
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    return dispatch => {
+      return dispatch(postRequest('api/task', params, constants.TASK_CREATED))
     }
-  }
+  },
 }
