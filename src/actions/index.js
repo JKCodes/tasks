@@ -7,7 +7,7 @@ const getRequest = (path, params, actionType) => {
       APIManager
       .get(path, params)
       .then(response => {
-        const payload = response.results || response.result
+        const payload = response.results || response.result || response.user
 
         dispatch({
           type: actionType,
@@ -28,7 +28,7 @@ const postRequest = (path, params, actionType) => {
       APIManager
       .post(path, params)
       .then(response => {
-        const payload = response.results || response.result
+        const payload = response.results || response.result || response.user
 
         dispatch({
           type: actionType,

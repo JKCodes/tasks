@@ -24676,7 +24676,7 @@
 	var getRequest = function getRequest(path, params, actionType) {
 	  return function (dispatch) {
 	    return _utils.APIManager.get(path, params).then(function (response) {
-	      var payload = response.results || response.result;
+	      var payload = response.results || response.result || response.user;
 	
 	      dispatch({
 	        type: actionType,
@@ -24692,7 +24692,7 @@
 	var postRequest = function postRequest(path, params, actionType) {
 	  return function (dispatch) {
 	    return _utils.APIManager.post(path, params).then(function (response) {
-	      var payload = response.results || response.result;
+	      var payload = response.results || response.result || response.user;
 	
 	      dispatch({
 	        type: actionType,
@@ -24822,7 +24822,7 @@
 	        }
 	
 	        if (response.body.confirmation != 'success') {
-	          reject({ message: response.body.message });
+	          reject(new Error(response.body.message));
 	          return;
 	        }
 	
@@ -24840,7 +24840,7 @@
 	        }
 	
 	        if (response.body.confirmation != 'success') {
-	          reject({ message: response.body.message });
+	          reject(new Error(response.body.message));
 	          return;
 	        }
 	

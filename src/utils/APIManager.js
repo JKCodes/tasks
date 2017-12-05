@@ -16,7 +16,7 @@ export default {
         }
 
         if (response.body.confirmation != 'success'){
-          reject({message: response.body.message})
+          reject(new Error(response.body.message))
           return
         }
 
@@ -38,7 +38,7 @@ export default {
         }
 
         if (response.body.confirmation != 'success'){
-          reject({message: response.body.message})
+          reject(new Error(response.body.message))
           return
         }
 
