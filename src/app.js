@@ -10,6 +10,8 @@ const app = (
   <Provider store={ store.configureStore() }>
     <Router history={browserHistory}>
       <Route path="/" component={Home} />
+      <Route path="/task/:id" component={Split} />
+      <Route path="/profile/:id" component={ProfileLayout} /
     </Router>
   </Provider>
 )
