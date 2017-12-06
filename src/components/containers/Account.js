@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions' 
+import actions from '../../actions'
 import { Authenticate } from '../view'
+import { Link } from 'react-router'
+
 
 class Account extends Component {
 
   componentDidMount(){
     if (this.props.user != null)
       return
-
     this.props.checkCurrentUser()
     .then(response => {
 
@@ -19,6 +20,7 @@ class Account extends Component {
   }
 
   authenticate(credentials){
+    console.log('authenticate: '+JSON.stringify(credentials))
     this.props.login(credentials)
     .then(response => {
 
@@ -28,17 +30,17 @@ class Account extends Component {
     })
   }
 
-  register(credentials) {
+  register(credentials){
+    console.log('register: '+JSON.stringify(credentials))
     this.props.register(credentials)
   }
 
   render(){
-
     return (
       <div style={{padding: 24}}>
         <h2>Account</h2>
         { (this.props.user == null) ? <Authenticate onLogin={this.authenticate.bind(this)} onRegister={this.register.bind(this)} /> :
-          <h2> Hello {this.prpos.user.username}</h2>
+          <h2> Hello <Link to={'/profile/'+this.props.user.id}>{this.props.user.username}</Link></h2>
         }
 
       </div>
@@ -48,17 +50,19 @@ class Account extends Component {
 
 const stateToProps = (state) => {
   return {
-    user: state.account.user
+    user: state.account.user // can be null
   }
 }
 
-const dispatchToProps = (dispatch) => {
+const dispatchToProps = (disptach) => {
   return {
-    register: (credentials) => dispatch(actions.register(credentials)),
-    login: (credentials) => dispatch(actions.login(credentials)),
-    checkCurrentUser: () => dispatch(actions.checkCurrentUser())
+    register: (credentials) => disptach(actions.register(credentials)),
+    login: (credentials) => disptach(actions.login(credentials)),
+    checkCurrentUser: () => disptach(actions.checkCurrentUser())
   }
 }
-
 
 export default connect(stateToProps, dispatchToProps)(Account)
+
+
+

@@ -14,6 +14,8 @@ class Authenticate extends Component {
   }
 
   updateCredentials(field, event){
+    console.log('updateCredentials: ' + field + ' == '+event.target.value)
+
     let updated = Object.assign({}, this.state.credentials)
     updated[field] = event.target.value
     this.setState({
@@ -22,6 +24,7 @@ class Authenticate extends Component {
   }
 
   register(event){
+    // console.log('register: '+JSON.stringify(this.state.credentials))
     if(this.state.credentials.username.length == 0){
       swal({
         title: "Oops!",
@@ -62,6 +65,7 @@ class Authenticate extends Component {
   }
 
   login(event){
+//    console.log('login: '+JSON.stringify(this.state.credentials))
     if(this.state.credentials.email.length == 0){
       console.log('error 1: '+JSON.stringify(this.state.credentials))
       swal({

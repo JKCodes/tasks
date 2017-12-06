@@ -2,47 +2,46 @@ import constants from '../constants'
 import { APIManager } from '../utils'
 
 const getRequest = (path, params, actionType) => {
-  return (dispatch) => {
-    return (
-      APIManager
-      .get(path, params)
-      .then(response => {
-        const payload = response.results || response.result || response.user
+  console.log('Hi')
+  return (dispatch) => 
+    APIManager.get(path, params)
+    .then(response => {
 
-        dispatch({
-          type: actionType,
-          payload: payload,
-          params: params
-        })
+      const payload = response.results || response.result || response.user
+
+      dispatch({
+        type: actionType,
+        payload: payload,
+        params: params
       })
-      .catch(err => {
-        throw err
-      })
-    )
-  }
+
+      return response
+    })
+    .catch(err => {
+
+      throw err
+    })
 }
 
 const postRequest = (path, params, actionType) => {
-  return (dispatch) => {
-    return (
-      APIManager
-      .post(path, params)
-      .then(response => {
-        const payload = response.results || response.result || response.user
+  return (dispatch) => 
+    APIManager.post(path, params)
+    .then(response => {
+//      console.log('POST: '+JSON.stringify(response))
+      const payload = response.results || response.result || response.user
 
-        dispatch({
-          type: actionType,
-          payload: payload,
-          params: params
-        })
+      dispatch({
+        type: actionType,
+        payload: payload,
+        params: params
       })
-      .catch(err => {
-        throw err
-      })
-    )
-  }
+      return response
+    })
+    .catch(err => {
+//      console.log('ERR: '+JSON.stringify(err.message))
+      throw err
+    })
 }
-
 
 export default {
 
@@ -71,21 +70,46 @@ export default {
   },
 
   fetchTasks: (params) => {
-    return dispatch => {
+    return (dispatch) => {
       return dispatch(getRequest('/api/task', params, constants.TASKS_RECEIVED))
     }
   },
 
-  createTask: (params) => {
-    return dispatch => {
-      return dispatch(postRequest('api/task', params, constants.TASK_CREATED))
+  tasksReceived: (tasks) => {
+    return {
+      type: constants.TASKS_RECEIVED,
+      payload: tasks
+    }
+  },
+
+  submitTask: (params) => {
+    return (dispatch) => {
+      return dispatch(postRequest('/api/task', params, constants.TASK_CREATED))
+    }
+  },
+
+  submitMessage: (params) => {
+    return (dispatch) => {
+      return dispatch(postRequest('/api/message', params, constants.MESSAGE_CREATED))
+    }
+  },
+
+  fetchMessages: (params) => {
+    return (dispatch) => {
+      return dispatch(getRequest('/api/message', params, constants.MESSAGES_RECEIVED))
     }
   },
 
   selectCategory: (category) => {
-    return  {
+    return {
       type: constants.CATEGORY_SELECTED,
       payload: category
+    }
+  },
+
+  notify: (params) => {
+    return(dispatch) => {
+      return dispatch(postRequest('/twilio/notify', params, null))
     }
   }
 }

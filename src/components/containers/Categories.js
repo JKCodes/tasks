@@ -1,33 +1,42 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import actions from '../../actions' 
+import actions from '../../actions'
 
 class Categories extends Component {
-
-  selectCategory(event) {
+  selectCategory(category, event){
     event.preventDefault()
-
-    this.props.selectCategory(event.target.id)
+    this.props.selectCategory(category)
   }
 
-
   render(){
-
     return (
-      <div>
-        <h2>Categories</h2>
-        <ul>
-          {this.props.tasks.categories.map((category) =>{
-              const color = (category == this.props.tasks.selectedCategory) ? 'red' : '#333'
+      <div className="inner">
+        <section id="search" className="alt">
+          <form method="post" action="#">
+            <input type="text" name="query" id="query" placeholder="Search" />
+          </form>
+        </section>
+        <nav id="menu">
+          <header className="major">
+            <h2>Categories</h2>
+          </header>
 
-              return ( 
+          <ul>
+            {this.props.tasks.categories.map((category, i) => {
+              const color = (category == this.props.tasks.selectedCategory) ? 'red' : '#333'
+              return (
                 <li key={category}>
-                  <a id={category} onClick={this.selectCategory.bind(this)} href="#" style={{color: color}}>{category}</a>
-                </li>  
-              )
-            })
-          }
-        </ul>
+                  <a onClick={this.selectCategory.bind(this, category)} href="#" style={{color: color}}>{category}</a>
+                </li>
+                )
+              })
+            }
+          </ul>
+        </nav>
+        
+        <footer id="footer">
+          <p className="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </footer>
       </div>
     )
   }
@@ -44,6 +53,5 @@ const dispatchToProps = (dispatch) => {
     selectCategory: (category) => dispatch(actions.selectCategory(category))
   }
 }
-
 
 export default connect(stateToProps, dispatchToProps)(Categories)

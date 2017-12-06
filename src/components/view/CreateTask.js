@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class CreateTask extends Component {
 
-  constructor() {
+  constructor(){
     super()
     this.state = {
       task: {
@@ -13,9 +13,8 @@ class CreateTask extends Component {
     }
   }
 
-  updateTask(event) {
+  updateTask(event){
     event.preventDefault()
-
     let updated = Object.assign({}, this.state.task)
     updated[event.target.id] = event.target.value
     this.setState({
@@ -23,20 +22,19 @@ class CreateTask extends Component {
     })
   }
 
-  submitTask(event) {
+  submitTask(event){
     event.preventDefault()
-
+    console.log(JSON.stringify(this.state.task))
     this.props.onSubmitTask(this.state.task)
   }
 
   render(){
-
     return (
       <div>
         <h2>CreateTask</h2>
-        <input id="title" onChange={this.updateTask.bind(this)} type="text" placeholder="Title" />
+        <input onChange={this.updateTask.bind(this)} id="title" type="text" placeholder="Title" />
         <br />
-        <input id="description" onChange={this.updateTask.bind(this)} type="text" placeholder="Description" />
+        <input onChange={this.updateTask.bind(this)} id="description" type="text" placeholder="Description" />
         <br />
         <select id="category" onChange={this.updateTask.bind(this)}>
           <option value="delivery">Delivery</option>
@@ -48,8 +46,8 @@ class CreateTask extends Component {
       </div>
     )
   }
+
 }
 
 export default CreateTask
-
 
