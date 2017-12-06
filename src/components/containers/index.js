@@ -5,9 +5,9 @@ import Account from './Account'
 import Profile from './Profile'
 
 export {
-  Tasks,
-  Task,
-  Categories,
-  Account,
-  Profile 
+	Tasks,
+	Task,
+	Categories,
+	Account,
+	Profile	
 }

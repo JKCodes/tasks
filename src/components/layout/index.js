@@ -4,7 +4,7 @@ import ProfileLayout from './ProfileLayout'
 
 export {
 
-  Home,
-  Split,
-  ProfileLayout
+	Home,
+	Split,
+	ProfileLayout
 }

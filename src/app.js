@@ -1,19 +1,27 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Home } from './components/layout'
-import store from './stores'
+import { Home, Split, ProfileLayout } from './components/layout'
 import { Provider } from 'react-redux'
+import store from './stores'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
+// const app = (
+// 	<Provider store={ store.configureStore() }>
+// 		<div>
+// 			React Entry Point
+// 			<Home />
+// 		</div>
+// 	</Provider>
+// )
 
 const app = (
-  <Provider store={ store.configureStore() }>
-    <Router history={browserHistory}>
-      <Route path="/" component={Home} />
-      <Route path="/task/:id" component={Split} />
-      <Route path="/profile/:id" component={ProfileLayout} /
-    </Router>
-  </Provider>
+	<Provider store={ store.configureStore() }>
+		<Router history={browserHistory}>
+			<Route path="/" component={Home} />
+			<Route path="/task/:id" component={Split} />
+			<Route path="/profile/:id" component={ProfileLayout} />
+		</Router>
+	</Provider>
 )
 
 ReactDOM.render(app, document.getElementById('root'))

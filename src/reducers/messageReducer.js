@@ -1,20 +1,23 @@
 import constants from '../constants'
 
 var initialState = {
-  
+	
 }
 
 export default (state = initialState, action) => {
-  let updated = Object.assign({}, state)
+	let updated = Object.assign({}, state)
 
-  switch (action.type) {
-    case constants.MESSAGES_RECEIVED:
-      let taskId = action.params.task
-      updated[taskId] = action.payload
+	switch (action.type) {
+		case constants.MESSAGES_RECEIVED:
+			console.log('MESSAGES_RECEIVED: '+JSON.stringify(action.payload))
 
-      return updated
-    
-    default:
-      return state
-  }
+			let taskId = action.params.task
+			updated[taskId] = action.payload
+			console.log('updated:'+JSON.stringify(updated))
+
+			return updated
+		
+		default:
+			return state
+	}
 }

@@ -4,7 +4,7 @@ import DateUtil from './DateUtil'
 
 export {
 
-  APIManager,
-  TextUtil,
-  DateUtil
+	APIManager,
+	TextUtil,
+	DateUtil
 }

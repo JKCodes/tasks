@@ -1,22 +1,26 @@
-var Profile = require('../models/Profile')
+var Message = require('../models/Message')
 var Promise = require('bluebird')
-var bcrypt = require('bcryptjs')
 
 module.exports = {
+
 	get: function(params, isRaw){
 		return new Promise(function(resolve, reject){
-			Profile.find(params, function(err, profiles){
+			var filters = {
+				sort: {timestamp: -1}
+			}
+
+			Message.find(params, null, filters, function(err, messages){
 				if (err){
 					reject(err)
 					return
 				}
 
 				if (isRaw == true)
-					resolve(profiles)
+					resolve(messages)
 				else {
 					var list = []
-					profiles.forEach(function(profile, i){
-						list.push(profile.summary())
+					messages.forEach(function(message, i){
+						list.push(message.summary())
 					})
 
 					resolve(list)
@@ -27,35 +31,33 @@ module.exports = {
 
 	getById: function(id, isRaw){
 		return new Promise(function(resolve, reject){
-			Profile.findById(id, function(err, profile){
+			Message.findById(id, function(err, message){
 				if (err){
 					reject(err)
 					return
 				}
-				
+
 				if (isRaw == true)
-					resolve(profile)
+					resolve(message)
 				else
-					resolve(profile.summary())
+					resolve(message.summary())
 			})
 		})
 	},
 
 	post: function(params, isRaw){
 		return new Promise(function(resolve, reject){
-			if (params['password']) // hash password:
-				params['password'] = bcrypt.hashSync(params.password, 10)
-
-			Profile.create(params, function(err, profile){
+			Message.create(params, function(err, message){
+				console.log(JSON.stringify(message))
 				if (err){
 					reject(err)
 					return
 				}
-
+				
 				if (isRaw == true)
-					resolve(profile)
+					resolve(message)
 				else
-					resolve(profile.summary())
+					resolve(message.summary())
 			})
 		})
 	}

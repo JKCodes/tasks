@@ -3,40 +3,45 @@ import { connect } from 'react-redux'
 import actions from '../../actions'
 
 class Profile extends Component {
-  componentDidMount(){
+	componentDidMount(){
+	// console.log('PROFILE: '+JSON.stringify(this.props.profile))
+	// console.log('MESSAGE: '+JSON.stringify(this.props.message))
 
-  const id = this.props.params.id
-  if (this.props.profiles[id] != null)
-    return
+	// console.log('PARAMS: '+JSON.stringify(this.props.params))
 
-  this.props.fetchProfile(id)
+	const id = this.props.params.id
+	if (this.props.profiles[id] != null)
+		return
 
-  }
+	this.props.fetchProfile(id)
+	
 
-  render(){
-    const profile = this.props.profiles[this.props.params.id]
-    
-    return (profile == null) ? <div>Not found</div> : (
-      <div>
-        <h2>Profile Container</h2>
-        <h3>{profile.username}</h3><br />
-        <h3>{profile.email}</h3><br />
-      </div>
-    )
-  }
+	}
+
+	render(){
+		const profile = this.props.profiles[this.props.params.id]
+		
+		return (profile == null) ? <div>Not found</div> : (
+			<div>
+				<h2>Profile Container</h2>
+				<h3>{profile.username}</h3><br />
+				<h3>{profile.email}</h3><br />
+			</div>
+		)
+	}
 }
 
 const stateToProps = (state) => {
-  return {
-    
-    profiles: state.profile
-  }
+	return {
+		
+		profiles: state.profile
+	}
 }
 
 const dispatchToProps = (dispatch) => {
-  return {
-    fetchProfile: (id) => dispatch(actions.fetchProfile(id))
-  }
+	return {
+		fetchProfile: (id) => dispatch(actions.fetchProfile(id))
+	}
 }
 
 

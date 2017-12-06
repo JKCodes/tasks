@@ -3,7 +3,7 @@ import Authenticate from './Authenticate'
 
 export {
 
-  CreateTask,
-  Authenticate
-  
+	CreateTask,
+	Authenticate
+	
 }

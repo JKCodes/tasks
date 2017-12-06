@@ -1,23 +1,25 @@
 import constants from '../constants'
 
 var initialState = {
-  user: null
+	user: null
 }
 
 export default (state = initialState, action) => {
-  let updated = Object.assign({}, state)
+	let updated = Object.assign({}, state)
 
-  switch (action.type){
+	switch (action.type){
 
-    case constants.PROFILE_CREATED:
-      updated['user'] = action.payload
-      return updated
+		case constants.PROFILE_CREATED:
+			console.log('PROFILE_CREATED:' +JSON.stringify(action.payload))
+			updated['user'] = action.payload
+			return updated
 
-    case constants.USER_LOGGED_IN:
-      updated['user'] = action.payload
-      return updated
+		case constants.USER_LOGGED_IN:
+			console.log('USER_LOGGED_IN:' +JSON.stringify(action.payload))
+			updated['user'] = action.payload
+			return updated
 
-    default: 
-      return state
-  }
+		default: 
+			return state
+	}
 }

@@ -5,23 +5,23 @@ import { taskReducer, accountReducer, messageReducer, profileReducer } from '../
 var store;
 
 export default {
-  configureStore: () => {
-    const reducers = combineReducers({
-      task: taskReducer,
-      account: accountReducer,
-      message: messageReducer,
-      profile: profileReducer
-    })
+	configureStore: () => {
+		const reducers = combineReducers({
+			task: taskReducer,
+			account: accountReducer,
+			message: messageReducer,
+			profile: profileReducer
+		})
 
-    store = createStore(
-      reducers,
-      applyMiddleware(thunk)
-    )
+		store = createStore(
+			reducers,
+			applyMiddleware(thunk)
+		)
 
-    return store
-  },
+		return store
+	},
 
-  currentStore: () => {
-    return store
-  }
+	currentStore: () => {
+		return store
+	}
 }

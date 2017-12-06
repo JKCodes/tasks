@@ -5,8 +5,8 @@ import profileReducer from './profileReducer'
 
 export {
 
-  taskReducer,
-  accountReducer,
-  messageReducer,
-  profileReducer
+	taskReducer,
+	accountReducer,
+	messageReducer,
+	profileReducer
 }
