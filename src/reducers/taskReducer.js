@@ -4,6 +4,7 @@ var initialState = {
   all: null,
   selectedCategory: 'delivery',
   categories: [
+    'misc',
     'delivery',
     'dog walking',
     'house cleaning'

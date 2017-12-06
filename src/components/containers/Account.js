@@ -8,7 +8,7 @@ class Account extends Component {
   componentDidMount(){
     if (this.props.user != null)
       return
-    
+
     this.props.checkCurrentUser()
     .then(response => {
 
@@ -54,9 +54,9 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    register: (credentials) => disptach(actions.register(credentials)),
-    login: (credentials) => disptach(actions.login(credentials)),
-    checkCurrentUser: () => disptach(actions.checkCurrentUser())
+    register: (credentials) => dispatch(actions.register(credentials)),
+    login: (credentials) => dispatch(actions.login(credentials)),
+    checkCurrentUser: () => dispatch(actions.checkCurrentUser())
   }
 }
 

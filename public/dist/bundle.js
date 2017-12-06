@@ -33135,7 +33135,7 @@
 	var initialState = {
 	  all: null,
 	  selectedCategory: 'delivery',
-	  categories: ['delivery', 'dog walking', 'house cleaning']
+	  categories: ['misc', 'delivery', 'dog walking', 'house cleaning']
 	};
 	
 	exports.default = function () {
@@ -33270,13 +33270,13 @@
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	  return {
 	    register: function register(credentials) {
-	      return disptach(_actions2.default.register(credentials));
+	      return dispatch(_actions2.default.register(credentials));
 	    },
 	    login: function login(credentials) {
-	      return disptach(_actions2.default.login(credentials));
+	      return dispatch(_actions2.default.login(credentials));
 	    },
 	    checkCurrentUser: function checkCurrentUser() {
-	      return disptach(_actions2.default.checkCurrentUser());
+	      return dispatch(_actions2.default.checkCurrentUser());
 	    }
 	  };
 	};
