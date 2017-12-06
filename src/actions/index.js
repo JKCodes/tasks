@@ -109,12 +109,4 @@ export default {
 			return dispatch(postRequest('/twilio/notify', params, null))
 		}
 	}
-
-	// taskCreated: (task) => {
-	// 	return {
-	// 		type: constants.TASK_CREATED,
-	// 		payload: task
-	// 	}
-	// }
-
 }
