@@ -20,7 +20,6 @@ class Account extends Component {
 	}
 
 	authenticate(credentials){
-		console.log('authenticate: '+JSON.stringify(credentials))
 		this.props.login(credentials)
 		.then(response => {
 
@@ -31,7 +30,6 @@ class Account extends Component {
 	}
 
 	register(credentials){
-		console.log('register: '+JSON.stringify(credentials))
 		this.props.register(credentials)
 	}
 
