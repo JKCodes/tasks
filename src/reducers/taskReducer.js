@@ -27,18 +27,15 @@ export default (state = initialState, action) => {
 				updated[task.id] = task
 			})
 
-//			console.log('TASKS_RECEIVED: '+JSON.stringify(updated))
 			return updated
 
 		case constants.TASK_CREATED:
-//			console.log('TASK_: '+JSON.stringify(action.tasks))
 			let currentTasks = (updated[action.payload.category]) ? Object.assign([], updated[action.payload.category]) : []
 			currentTasks.unshift(action.payload)
 			updated[action.payload.category] = currentTasks
 			return updated
 
 		case constants.CATEGORY_SELECTED:
-//			console.log('CATEGORY_SELECTED: '+action.payload)
 			updated['selectedCategory'] = action.payload
 			return updated
 

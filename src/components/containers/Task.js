@@ -18,17 +18,14 @@ class Task extends Component {
 
 	
 	componentDidMount(){
-		console.log('componentDidMount: '+ this.props.params.id)
-		
 		if (this.props.message[this.props.params.id] != null)
 			return
 
 		this.setState({
 			inLoop: true
 		})
-		// this.props.fetchMessages({task: this.props.params.id})
+		
 		this.fetchMessages()
-
 	}
 
 	
@@ -36,8 +33,6 @@ class Task extends Component {
 	fetchMessages(){
 		this.props.fetchMessages({task: this.props.params.id})
 		.then(response => {
-			console.log('IN LOOP?: '+this.state.inLoop)
-			console.log('LOCATION?: '+JSON.stringify(this.props.router.location))
 			// wrong path, bail out
 			if(this.props.router.location.pathname != '/task/'+this.props.params.id)
 				return
@@ -62,13 +57,11 @@ class Task extends Component {
 		this.setState({
 			message: updated
 		})
-	//	console.log('message'+JSON.stringify(this.state.message))
 	}
 
 
 	submitMessage(event){
 		event.preventDefault()
-		console.log('submitMessage: '+JSON.stringify(this.state.message))
 		let updated = Object.assign({}, this.state.message)
 		
 		const user = this.props.account.user
@@ -82,10 +75,8 @@ class Task extends Component {
 		const taskId = this.props.params.id
 		const task = this.props.tasks[taskId]
 
-		console.log('submitMessage: '+JSON.stringify(updated))
-		 this.props.submitMessage(updated)
-		 .then(response => {
-		 		console.log('MESSAGE CREATED: '+JSON.stringify(response))
+		this.props.submitMessage(updated)
+		.then(response => {
 		 		const params = {
 		 			recipient: task.profile.id,
 		 			text: updated.text,

@@ -66,7 +66,7 @@ export default {
 	        	}
 
 	        	const uploaded = resp.body
-	        	console.log('UPLOAD COMPLETE: '+JSON.stringify(uploaded))
+
 	        	resolve(uploaded)
 	        })
 		})

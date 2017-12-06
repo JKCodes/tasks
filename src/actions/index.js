@@ -2,7 +2,6 @@ import constants from '../constants'
 import { APIManager } from '../utils'
 
 const getRequest = (path, params, actionType) => {
-	console.log('Hi')
 	return (dispatch) => 
 		APIManager.get(path, params)
 		.then(response => {
@@ -27,7 +26,6 @@ const postRequest = (path, params, actionType) => {
 	return (dispatch) => 
 		APIManager.post(path, params)
 		.then(response => {
-//			console.log('POST: '+JSON.stringify(response))
 			const payload = response.results || response.result || response.user
 
 			dispatch({
@@ -38,7 +36,6 @@ const postRequest = (path, params, actionType) => {
 			return response
 		})
 		.catch(err => {
-//			console.log('ERR: '+JSON.stringify(err.message))
 			throw err
 		})
 }

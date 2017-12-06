@@ -9,7 +9,6 @@ import { DateUtil } from '../../utils'
 
 class Tasks extends Component {
 	getTasks(){
-//		console.log('getTasks: '+this.props.tasks.selectedCategory)
 		if (this.props.tasks[this.props.tasks.selectedCategory] != null)
 			return
 
@@ -33,7 +32,7 @@ class Tasks extends Component {
 	createTask(task){
 		this.props.submitTask(task)
 		.then(result => {
-//			console.log(JSON.stringify(result))
+
 		})
 		.catch(err => {
 			console.log('ERROR: '+JSON.stringify(err))
@@ -93,7 +92,6 @@ const dispatchToProps = (dispatch) => {
 		fetchTasks: (params) => dispatch(actions.fetchTasks(params)),
 		tasksReceived: (tasks) => dispatch(actions.tasksReceived(tasks)),
 		submitTask: (params) => dispatch(actions.submitTask(params))
-//		taskCreated: (task) => dispatch(actions.taskCreated(task))
 	}
 }
 
