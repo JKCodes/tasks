@@ -24,7 +24,7 @@ class CreateTask extends Component {
 
   submitTask(event){
     event.preventDefault()
-    console.log(JSON.stringify(this.state.task))
+
     this.props.onSubmitTask(this.state.task)
   }
 
