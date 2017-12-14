@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var controllers = require('../controllers')
-//var twilio = require('twilio')
 var utils = require('../utils')
 
 
@@ -25,7 +24,6 @@ router.get('/notify', function(req, res, next) {
 
 
 router.post('/notify', function(req, res, next) {
-	console.log(JSON.stringify(req.body))
 	if(req.body.recipient == null){
 		res.json({
 			confirmation: 'fail',
@@ -43,7 +41,7 @@ router.post('/notify', function(req, res, next) {
 	}
 
 	controllers.profile
-	.getById(req.body.recipient, false) // Get profile first
+	.getById(req.body.recipient, false)
 	.then(function(profile){
 		var msg = req.body.taskResponder + ' replied to your task. Here is the message:\n\n'+req.body.text+'. View '+req.body.taskResponder+'\'s profile here: https://jkcodes-tasks.herokuapp.com/profile/api'+req.body.taskResponder.profile+''
 		
@@ -72,18 +70,11 @@ router.get('/task', function(req, res, next) {
 })
 
 router.post('/task', function(req, res, next) {
-//    res.render('index', { title: 'Express' })
-
-	console.log('TWILIO: '+JSON.stringify(req.body))
-	// TWILIO: {"ToCountry":"US","ToState":"NY","SmsMessageSid":"SOMEID2","NumMedia":"0","ToCity":"NEW YORK","FromZip":"10128","SmsSid":"SOMEID2","FromState":"CT","SmsStatus":"received","FromCity":"NORWALK","Body":"Test task","FromCountry":"US","To":"+16467130087","ToZip":"10028","NumSegments":"1","MessageSid":"SOMEID2","AccountSid":"SOMEID","From":"+1111111111","ApiVersion":"2010-04-01"}
 
 	var message = req.body['Body']	
-	// Title. Category. task description.
-	// example: 'Package pickup. Delivery. Please pick up my package from the post office.'
-
 	var validCategories = ['delivery', 'dog walking', 'house cleaning', 'misc']
 
-	var parts = message.split('.') // hopefully 3 parts
+	var parts = message.split('.')
 	var category = (parts.length == 1) ? 'misc' : parts[1].trim().toLowerCase()
 	var description = null
 
@@ -101,7 +92,7 @@ router.post('/task', function(req, res, next) {
 		description: description
 	}
 
-	var from = req.body['From'].replace('+1', '') // phone # of sender
+	var from = req.body['From'].replace('+1', '') 
 
 	controllers.profile.get({phone: from}, false)
 	.then(function(profiles){
@@ -119,7 +110,6 @@ router.post('/task', function(req, res, next) {
 		return controllers.task.post(task, false)
 	})
 	.then(function(result){
-	//	console.log('SUCCESS: '+JSON.stringify(result))
 		var msg = 'Thanks, we got your task.'
 
 		return utils.TwilioHelper.sendSMS(from, msg)

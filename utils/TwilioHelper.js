@@ -11,8 +11,8 @@ module.exports = {
 		
 			client.messages.create({
 			  body: message,
-			  to: recipient,  // Text this number
-			  from: process.env.TWILIO_FROM // From a valid Twilio number
+			  to: recipient,
+			  from: process.env.TWILIO_FROM
 			}, function(err, message) {
 				if(err){
 					reject(err)
