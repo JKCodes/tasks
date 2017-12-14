@@ -12,8 +12,6 @@ export default {
 
 		if (hours < 24)
 			return <Time value={date} format="MMM DD, YYYY" relative />
-		//if date is within 24 hours, return relative time component
-		// or add hours, minutes
 
 		return <Time value={date} format="MMM DD, YYYY" />
 	}
