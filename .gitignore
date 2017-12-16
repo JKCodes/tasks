@@ -23,6 +23,7 @@ yarn-error.log*
 # nightwatch reporting
 /reports
 
+.vscode
 .env
 /public/theme
 /public/build
