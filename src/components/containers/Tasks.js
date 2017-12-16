@@ -17,7 +17,11 @@ class Tasks extends Component {
 
 		})
 		.catch(err => {
-			alert(err)
+			swal({
+			  title: "An unexpected error has occurred",
+			  text: err.message,
+			  type: "error",
+			})
 		})
 	}
 
@@ -35,7 +39,11 @@ class Tasks extends Component {
 
 		})
 		.catch(err => {
-			console.log('ERROR: '+JSON.stringify(err))
+			swal({
+			  title: "An unexpected error has occurred",
+			  text: "Please try again.",
+			  type: "error",
+			})
 		})
 	}
 

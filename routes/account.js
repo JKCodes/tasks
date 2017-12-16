@@ -72,19 +72,38 @@ router.post('/:action', function(req, res, next) {
 
 	if (action == 'register'){
 		controllers.profile
-		.post(req.body, false)
-		.then(function(result){
+		.get({email: req.body.email}, true)
+		.then(function(results) {
+			if (results.length > 0) {
+				res.json({
+					confirmation: 'fail',
+					message: 'Email is already taken. Please try again.'
+				})
 
-			var token = jwt.sign({id:result.id}, process.env.TOKEN_SECRET, {expiresIn:4000})
-			req.session.token = token
+				return
+			}
 
-			res.json({
-				confirmation: 'success',
-				user: result,
-				token: token
+			controllers.profile
+			.post(req.body, false)
+			.then(function(result){
+
+				var token = jwt.sign({id:result.id}, process.env.TOKEN_SECRET, {expiresIn:4000})
+				req.session.token = token
+
+				res.json({
+					confirmation: 'success',
+					user: result,
+					token: token
+				})
+			})
+			.catch(function(err){
+				res.json({
+					confirmation: 'fail',
+					message: err
+				})
 			})
 		})
-		.catch(function(err){
+		.catch(function(err) {
 			res.json({
 				confirmation: 'fail',
 				message: err

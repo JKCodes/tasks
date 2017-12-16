@@ -74,7 +74,7 @@ class Authenticate extends Component {
 		if(this.state.credentials.password.length == 0){
 			swal({
 			  title: "Oops!",
-			  text: "You forgot your username!",
+			  text: "You forgot your password!",
 			  type: "error",
 			})
 			return
@@ -85,16 +85,20 @@ class Authenticate extends Component {
 	render(){
 		return (
 			<div>
+				<header className="major">
+					<h2>Account</h2>
+				</header>
+
 				<h3>Sign Up</h3>
 				<input onChange={this.updateCredentials.bind(this, 'username')} type="text" placeholder="Username" /><br />
 				<input onChange={this.updateCredentials.bind(this, 'phone')} type="text" placeholder="Phone" /><br />
-				<input onChange={this.updateCredentials.bind(this, 'email')} type="text" placeholder="Email" /><br />
-				<input onChange={this.updateCredentials.bind(this, 'password')} type="text" placeholder="Password" /><br />
+				<input onChange={this.updateCredentials.bind(this, 'email')} type="email" placeholder="Email" /><br />
+				<input onChange={this.updateCredentials.bind(this, 'password')} type="password" placeholder="Password" /><br />
 				<button onClick={this.register.bind(this)}>Join</button><br /><br />
 
 				<h3>Log In</h3>
-				<input onChange={this.updateCredentials.bind(this, 'email')} type="text" placeholder="Email" /><br />
-				<input onChange={this.updateCredentials.bind(this, 'password')} type="text" placeholder="Password" /><br />
+				<input onChange={this.updateCredentials.bind(this, 'email')} type="email" placeholder="Email" /><br />
+				<input onChange={this.updateCredentials.bind(this, 'password')} type="password" placeholder="Password" /><br />
 				<button onClick={this.login.bind(this)}>Login</button>
 			</div>
 		)

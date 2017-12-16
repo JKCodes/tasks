@@ -33,6 +33,7 @@ const postRequest = (path, params, actionType) => {
 				payload: payload,
 				params: params
 			})
+
 			return response
 		})
 		.catch(err => {
@@ -51,6 +52,12 @@ export default {
 	login: (credentials) => {
 		return (dispatch) => {
 			return dispatch(postRequest('/account/login', credentials, constants.USER_LOGGED_IN))
+		}
+	},
+
+	logout: (params) => {
+		return (dispatch) => {
+			return dispatch(getRequest('/account/logout', params, constants.USER_LOGGED_IN))
 		}
 	},
 

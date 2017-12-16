@@ -1,5 +1,5 @@
 import React,  { Component } from 'react'
-import { Task, Account } from '../containers'
+import { Task, Account, Categories } from '../containers'
 
 export default (props) => {
 	return (
@@ -15,6 +15,7 @@ export default (props) => {
 				</div>		
 				<div id="sidebar">
 					<Account />
+					<Categories />
 				</div>
 			</div>
 	)

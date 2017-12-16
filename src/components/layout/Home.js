@@ -12,10 +12,10 @@ class Home extends Component {
 								<a href="/" className="logo"><strong>Twilio Tasks</strong></a>
 							</header>
 							<Tasks />
-							<Account />
 					</div>
 				</div>		
 				<div id="sidebar">
+					<Account />
 					<Categories />
 				</div>
 			</div>

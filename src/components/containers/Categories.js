@@ -5,12 +5,13 @@ import actions from '../../actions'
 class Categories extends Component {
 	selectCategory(category, event){
 		event.preventDefault()
+		$(window).scrollTop(0)
 		this.props.selectCategory(category)
 	}
 
 	render(){
 		return (
-			<div className="inner">
+			<div style={{padding:24}}>
 				<nav id="menu">
 					<header className="major">
 						<h2>Categories</h2>
@@ -29,7 +30,7 @@ class Categories extends Component {
 					</ul>
 				</nav>
 				
-				<footer id="footer">
+				<footer id="footer" style={{marginTop: 20}}>
 					<p className="copyright">&copy; JKCodes. All rights reserved.</p>
 				</footer>
 			</div>

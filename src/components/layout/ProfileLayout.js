@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Profile, Account } from '../containers'
+import { Profile, Account, Categories } from '../containers'
 
 class ProfileLayout extends Component {
 	render(){
@@ -15,6 +15,7 @@ class ProfileLayout extends Component {
 				</div>		
 				<div id="sidebar">
 					<Account />
+					<Categories />
 				</div>
 			</div>
 		)

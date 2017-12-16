@@ -25,20 +25,50 @@ class Account extends Component {
 
 		})
 		.catch(err => {
-			alert(err.message)
+			swal({
+			  title: "Authentication Error",
+			  text: err.message,
+			  type: "error"
+			})
+		})
+	}
+
+	logout() {
+		this.props.logout(null)
+		.then(response => {
+
+		})
+		.catch(err => {
+			swal({
+			  title: "An unexpected error has occurred",
+			  text: "Please try again.",
+			  type: "error"
+			})
 		})
 	}
 
 	register(credentials){
 		this.props.register(credentials)
+		.then(response => {
+
+		})
+		.catch(err => {
+			swal({
+			  title: "Registration Error",
+			  text: err.message,
+			  type: "error",
+			})
+		})
 	}
 
 	render(){
 		return (
 			<div style={{padding: 24}}>
-				<h2>Account</h2>
 				{ (this.props.user == null) ? <Authenticate onLogin={this.authenticate.bind(this)} onRegister={this.register.bind(this)} /> :
-					<h2> Hello <Link to={'/profile/'+this.props.user.id}>{this.props.user.username}</Link></h2>
+					<div>
+						<h2> Hello <Link to={'/profile/'+this.props.user.id}>{this.props.user.username}</Link></h2>
+						<button onClick={this.logout.bind(this)}>Logout</button><br /><br />
+					</div>
 				}
 
 			</div>
@@ -52,11 +82,12 @@ const stateToProps = (state) => {
 	}
 }
 
-const dispatchToProps = (disptach) => {
+const dispatchToProps = (dispatch) => {
 	return {
-		register: (credentials) => disptach(actions.register(credentials)),
-		login: (credentials) => disptach(actions.login(credentials)),
-		checkCurrentUser: () => disptach(actions.checkCurrentUser())
+		register: (credentials) => dispatch(actions.register(credentials)),
+		login: (credentials) => dispatch(actions.login(credentials)),
+		logout: (params) => dispatch(actions.logout(params)),
+		checkCurrentUser: () => dispatch(actions.checkCurrentUser())
 	}
 }
 

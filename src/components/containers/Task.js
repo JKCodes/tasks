@@ -85,8 +85,12 @@ class Task extends Component {
 		 		return this.props.notify(params)
 		 })
 		 .then(response => {
-		 		alert('Thanks for replying. Good luck!')
-		 })
+				swal({
+					title: "Reply Received",
+					text: "Thank you for replying.",
+					type: "success",
+				})
+		  })
 		 .catch(err => {
 		 		console.log('ERR: '+JSON.stringify(err))
 		 })
