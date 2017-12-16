@@ -117,7 +117,7 @@ class Task extends Component {
 					<ol>
 						{ (messages == null) ? <p>No replies</p> :
 							messages.map((message, i) => {
-								return <li key={message.id}>{message.text} by <Link to={'/profile/'+message.profile.id}>{message.profile.username}</Link></li>
+								return <li key={message.id}><strong>{message.text}</strong> by <Link to={'/profile/'+message.profile.id}>{message.profile.username}</Link></li>
 							})
 						}
 					</ol>

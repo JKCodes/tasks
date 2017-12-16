@@ -19,9 +19,9 @@ class Profile extends Component {
 		
 		return (profile == null) ? <div>Not found</div> : (
 			<div>
-				<h2>Profile Container</h2>
-				<h3>{profile.username}</h3><br />
-				<h3>{profile.email}</h3><br />
+				<h2>{profile.username}'s Profile</h2>
+				<h3>Username: {profile.username}</h3>
+				<h3>Email: {profile.email}</h3>
 			</div>
 		)
 	}
