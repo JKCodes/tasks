@@ -82,48 +82,73 @@ router.get('/:page/:id', function(req, res, next) {
   var initialStore = null
   var reducers = {}
 
+  var controller = null
+  var key = null
+  var layout = null
+
   if (page == 'api') {
     next()
 
     return
   }
 
-  if (page == 'profile') {
-    controllers.profile.getById(id, false)
-    .then(function(profile) {
-      console.log(profile)
-
-      var id = profile.id
-
-      reducers['profile'] = {
-        id: profile
-      }
-    })
-    .then(function() {
-      initialStore = store.configureStore(reducers)
-
-      var routes = {
-        path: '/profile/:id',
-        component: serverapp,
-        initial: initialStore,
-        indexRoute: {
-          component: ProfileLayout
-        }
-      }
-
-      return matchRoutes(req, routes)
-    })
-    .then(function(renderProps) {
-      var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
-      res.render('index', { react: html, preloadedState: JSON.stringify(initialStore.getState()) });
-    })
-    .catch(function(err) {
-      console.log(err)
-    })
+  if (page != 'task' && page != 'profile') {
+    return
   }
 
-  
+  if (page == 'task') {
+    controller = controllers.task
+    key = 'task'
+    layout = Split
+  } else if (page == 'profile') {
+    controller = controllers.profile
+    key = 'profile'
+    layout = ProfileLayout
+  } else {
+    return
+  }
 
+  controller.getById(id, false)
+  .then(function(result) {
+    var id = result.id
+
+    reducers[key] = {}
+
+    if (key = 'task') {
+      reducers[key] = {
+        selectedCategory: 'delivery',
+        categories: [
+          'delivery',
+          'dog walking',
+          'house cleaning',
+          'misc'
+        ]
+      }  
+    }
+
+    reducers[key][id] = result
+  })
+  .then(function() {
+    initialStore = store.configureStore(reducers)
+
+    var routes = {
+      path: '/:page/:id',
+      component: serverapp,
+      initial: initialStore,
+      indexRoute: {
+        component: layout
+      }
+    }
+
+    return matchRoutes(req, routes)
+  })
+  .then(function(renderProps) {
+    var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+    res.render('index', { react: html, preloadedState: JSON.stringify(initialStore.getState()) });
+  })
+  .catch(function(err) {
+    console.log(err)
+  })
 });
 
 module.exports = router;

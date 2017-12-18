@@ -98,7 +98,7 @@ class Task extends Component {
 
 	render(){
 		const taskId = this.props.params.id
-		const task = this.props.tasks[taskId]
+		const task = this.props.tasks[taskId] || this.props.tasks['id']
 
 		const messages = this.props.message[taskId]
 
