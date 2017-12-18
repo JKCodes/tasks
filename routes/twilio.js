@@ -43,7 +43,7 @@ router.post('/notify', function(req, res, next) {
 	controllers.profile
 	.getById(req.body.recipient, false)
 	.then(function(profile){
-		var msg = req.body.taskResponder + ' replied to your task. Here is the message:\n\n'+req.body.text+'. View '+req.body.taskResponder+'\'s profile here: https://jkcodes-tasks.herokuapp.com/profile/api'+req.body.taskResponder.profile+''
+		var msg = req.body.sender.username + ' replied to your task. Here is the message:\n\n'+req.body.text+'. View '+req.body.sender.username+'\'s profile here: https://jkcodes-tasks.herokuapp.com/profile/'+req.body.sender.id+''
 		
 		return utils.TwilioHelper.sendSMS(profile.phone, msg)
 	})

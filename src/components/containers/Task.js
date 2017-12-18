@@ -80,7 +80,7 @@ class Task extends Component {
 		 		const params = {
 		 			recipient: task.profile.id,
 		 			text: updated.text,
-		 			taskResponder: updated.profile.username
+					sender: updated.profile
 		 		}
 		 		return this.props.notify(params)
 		 })
