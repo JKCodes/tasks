@@ -86,7 +86,7 @@ router.get('/:page/:id', function(req, res, next) {
   var key = null
   var layout = null
 
-  if (page == 'api' || page == 'account') {
+  if (page == 'api' || page == 'account' || page == 'twilio') {
     next()
 
     return
