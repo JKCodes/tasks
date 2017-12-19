@@ -8,6 +8,10 @@ This app lists all tasks that are sorted reverse chronologically and by category
 
 This app also utilizes server-side rendering to both facilitate routing and to make certain pages and components very fast and efficient.
 
+## Site
+1. [More Info on This App](https://jkcodes-portfolio.herokuapp.com/project/5a3932442c176d0014a3524b)
+2. [Link to Site](https://jkcodes-tasks.herokuapp.com/)
+
 ## Installation
 
 1. Navigate to [the site](https://jkcodes-tasks.herokuapp.com/)
